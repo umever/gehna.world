@@ -1,8 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+interface SliderData {
+  img: string;
+  location: string;
+  title: string;
+}
+
 type Props = {
-  data: any;
+  data: SliderData;
 };
 
 function SliderCard({ data }: Props) {

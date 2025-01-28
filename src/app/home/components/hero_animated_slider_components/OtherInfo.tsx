@@ -1,8 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+interface SlideData {
+  location: string;
+  title?: string;
+  description?: string;
+}
+
 type Props = {
-  data: any;
+  data: SlideData;
 };
 const item = {
   hidden: {
