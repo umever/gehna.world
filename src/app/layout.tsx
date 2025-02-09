@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
+import { Analytics } from '@vercel/analytics/next';
 // import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body className={`${open_sans.className} antialiased`}>
         <main>
           {children}
+          <Analytics />
         </main>
       </body>
     </html>
