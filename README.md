@@ -93,7 +93,7 @@ For more details, see: [Creative Commons License](https://creativecommons.org/li
 ### Connect with Us
 
 Website: [gehna.world](https://gehna.world)\
-Instagram: [https://www.instagram.com/ume.\_.sh/](https://www.instagram.com/ume._.sh/)\
+Instagram: [ume.\_.sh](https://www.instagram.com/ume._.sh/)\
 Email: [umeshverma1999.uv@gmail.com](mailto\:umeshverma1999.uv@gmail.com)
 
 Happy Shopping! ✨
