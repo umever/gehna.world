@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gehna World
+
+Welcome to **Gehna World** – your own e-commerce store offering all types of jewelry styles, from classic to contemporary. This repository contains the code and resources for the Gehna World website.
+
+## Table of Contents
+
+- [About](#about)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Connect with Us](#connect-with-us)
+
+## About
+
+Gehna World is an e-commerce store that offers a diverse collection of jewelry styles, from traditional to contemporary designs. Our website provides a seamless shopping experience with a beautiful UI and user-friendly navigation.
+
+## Features
+
+- Stunning UI/UX design
+- Secure and fast checkout
+- Mobile-friendly responsive design
+- Product filtering and search
+- Wishlist and cart functionality
+- User authentication and profile management
+- Admin panel for inventory management
 
 ## Getting Started
 
-First, run the development server:
+To set up the project locally, follow these steps:
+
+### Prerequisites
+
+- Node.js (v16 or later)
+- Git
+- A package manager (npm, yarn, or pnpm)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Gehna-World/gehna.world.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd gehna.world
+   ```
+3. Install dependencies:
+   ```bash
+   npm install  # or yarn install or pnpm install
+   ```
+
+### Usage
+
+To start the development server, run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Contributing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+We welcome contributions! To contribute:
 
-## Learn More
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Open a Pull Request.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+You are free to:
 
-## Deploy on Vercel
+- Share: Copy and redistribute the material in any medium or format.
+- Adapt: Remix, transform, and build upon the material.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Under the following terms:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Attribution**: You must give appropriate credit.
+- **Non-Commercial**: You may not use the material for commercial purposes.
+
+For more details, see: [Creative Commons License](https://creativecommons.org/licenses/by-nc/4.0/).
+
+---
+
+### Connect with Us
+
+Website: [gehna.world](https://gehna.world)\
+Instagram: [https://www.instagram.com/ume.\_.sh/](https://www.instagram.com/ume._.sh/)\
+Email: [umeshverma1999.uv@gmail.com](mailto\:umeshverma1999.uv@gmail.com)
+
+Happy Shopping! ✨
+
