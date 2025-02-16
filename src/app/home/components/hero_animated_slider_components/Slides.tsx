@@ -1,4 +1,4 @@
-import { Data } from "../hero_animated_slider";
+import { Data } from "./HeroAnimatedSlider";
 import React from "react";
 import SliderCard from "./SliderCard";
 

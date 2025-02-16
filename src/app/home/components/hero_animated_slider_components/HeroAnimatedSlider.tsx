@@ -2,10 +2,10 @@
 import { Righteous } from "next/font/google";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
-import BackgroundImage from "./hero_animated_slider_components/BackgroundImage";
-import Slides from "./hero_animated_slider_components/Slides";
-import SlideInfo from "./hero_animated_slider_components/SlideInfo";
-import Controls from "./hero_animated_slider_components/Controls";
+import BackgroundImage from "./BackgroundImage";
+import Slides from "./Slides";
+import SlideInfo from "./SlideInfo";
+import Controls from "./Controls";
 
 const inter = Righteous({
   subsets: ["latin"],

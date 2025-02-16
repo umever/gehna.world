@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Data, CurrentSlideData } from "../hero_animated_slider";
+import { Data, CurrentSlideData } from "./HeroAnimatedSlider";
 
 type Props = {
   transitionData: Data;
