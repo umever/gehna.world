@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react'
 
+import styles from '../../../styles/EmblaCarousel.module.css'
+
 const PLACEHOLDER_SRC = `data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D`
 
 type PropType = {
@@ -17,15 +19,15 @@ export const LazyLoadImage: React.FC<PropType> = (props) => {
   }, [inView, setHasLoaded])
 
   return (
-    <div className="embla__slide">
+    <div className={styles.embla__slide}>
       <div
-        className={'embla__lazy-load'.concat(
-          hasLoaded ? ' embla__lazy-load--has-loaded' : ''
-        )}
+        className={`${styles.embla__lazy_load} ${
+          hasLoaded ? styles.embla__lazy_load_has_loaded : ''
+        }`}
       >
-        {!hasLoaded && <span className="embla__lazy-load__spinner" />}
+        {!hasLoaded && <span className={styles.embla__lazy_load__spinner} />}
         <img
-          className="embla__slide__img embla__lazy-load__img"
+          className={`${styles.embla__slide__img} ${styles.embla__lazy_load__img}`}
           onLoad={setLoaded}
           src={inView ? imgSrc : PLACEHOLDER_SRC}
           alt="Your alt text"

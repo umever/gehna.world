@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      {/* <HeroAnimatedSlider /> */}
+      <HeroAnimatedSlider />
       <EmblaCarousel slides={SLIDES} options={OPTIONS}/>
     </>
   );
