@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { MdOutlineShoppingBag, MdFavoriteBorder, MdOutlinePersonOutline, MdOutlineMenu, MdOutlineClose } from "react-icons/md";
+import { ThemeModeToggle } from "./theme_mode_toggle";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,6 +37,7 @@ export default function Header() {
                             <MdOutlineShoppingBag size={24} />
                             <span className="text-s">Bag</span>
                         </Link>
+                        <ThemeModeToggle />
                     </div>
                 </header>
 
