@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ThemeProvider } from "./home/components/theme-provider";
 // import { Roboto_Condensed } from "next/font/google";
-import "./globals.css";
+import "./styles/globals.css";
 
 const open_sans = Open_Sans({
   style: ['normal', 'italic'],
@@ -30,13 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${open_sans.className} antialiased`}>
-        <main>
-          {children}
-          <Analytics />
-          <SpeedInsights />
-        </main>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <main>
+            {children}
+            <Analytics />
+            <SpeedInsights />
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
