@@ -18,12 +18,13 @@ export default function Header() {
         const handleResize = () => {
             if (window.innerWidth >= 1024) setIsMenuOpen(false);
         };
+
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    }, [setIsMenuOpen]);
 
     return (
-        <div className="fixed top-0 w-full bg-white z-50 shadow-sm">
+        <div className="Relative top-0 w-full z-50 shadow-sm">
             <div className="p-4 max-w-screen-2xl mx-auto">
                 <header className="flex items-center justify-between">
                     {/* Left: Menu Button + Logo */}
@@ -47,7 +48,7 @@ export default function Header() {
                             { href: "/wishlist", icon: <MdFavoriteBorder size={24} />, label: "Wishlist" },
                             { href: "/cart", icon: <MdOutlineShoppingBag size={24} />, label: "Bag" },
                         ].map(({ href, icon, label }) => (
-                            <Link key={href} href={href} className="flex flex-col items-center hover:text-gray-600">
+                            <Link key={href} href={href} className="flex flex-col items-center hover:text-gray-600 ">
                                 {icon}
                                 <span className="text-s">{label}</span>
                             </Link>
