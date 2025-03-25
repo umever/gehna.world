@@ -263,6 +263,28 @@ export default function Header() {
                                                 </NavigationMenuLink>
                                             ))}
                                         </div>
+                                        {/* Ad Banner at Bottom */}
+                                        <div className="mt-6 w-full h-32 bg-gradient-to-r from-primary/10 to-primary/20 rounded-lg overflow-hidden">
+                                            <div className="h-full flex items-center justify-between p-4">
+                                                <div className="space-y-2">
+                                                    <h3 className="text-lg font-semibold text-primary">Special Offer!</h3>
+                                                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                                                        Get 20% off on selected charms collection
+                                                    </p>
+                                                    <button className="px-4 py-1 text-sm bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors">
+                                                        Shop Now
+                                                    </button>
+                                                </div>
+                                                <div className="relative h-24 w-24">
+                                                    <Image
+                                                        src={ClipAndSpacer}
+                                                        alt="Promo"
+                                                        fill
+                                                        className="object-cover rounded-lg"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     {/* Right Section - Featured Image */}
