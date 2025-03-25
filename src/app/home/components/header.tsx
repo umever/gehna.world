@@ -117,7 +117,7 @@ const ListItem = React.forwardRef<
                 <a
                     ref={ref}
                     className={cn(
-                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
                         className
                     )}
                     {...props}
@@ -149,8 +149,8 @@ export default function Header() {
     }, [setIsMenuOpen]);
 
     return (
-        <div className="Relative top-0 w-full z-50 shadow-sm">
-            <div className="p-4 max-w-screen-2xl mx-auto">
+        <div className="Relative top-0 w-full z-50 shadow-xs">
+            <div className="p-4 max-w-(--breakpoint-2xl) mx-auto">
                 <header className="flex items-center justify-between">
                     {/* Left: Menu Button + Logo */}
                     <div className="flex items-center gap-4">
@@ -192,7 +192,7 @@ export default function Header() {
                                     <li className="row-span-3">
                                         <NavigationMenuLink asChild>
                                             <Link
-                                                className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                                                className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
                                                 href="/"
                                             >
                                                 <Icons.logo className="h-6 w-6" />
@@ -264,7 +264,7 @@ export default function Header() {
                                             ))}
                                         </div>
                                         {/* Ad Banner at Bottom */}
-                                        <div className="mt-6 w-full h-32 bg-gradient-to-r from-primary/10 to-primary/20 rounded-lg overflow-hidden">
+                                        <div className="mt-6 w-full h-32 bg-linear-to-r from-primary/10 to-primary/20 rounded-lg overflow-hidden">
                                             <div className="h-full flex items-center justify-between p-4">
                                                 <div className="space-y-2">
                                                     <h3 className="text-lg font-semibold text-primary">Special Offer!</h3>
