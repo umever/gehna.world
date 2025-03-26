@@ -218,9 +218,9 @@ export default function Header() {
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Charms</NavigationMenuTrigger>
                             <NavigationMenuContent>
-                                <div className="grid grid-cols-[200px_1fr_320px] gap-3 p-4 w-[1200px] min-h-[500px] bg-white dark:bg-gray-950 rounded-lg shadow-lg">
+                                <div className="grid grid-cols-[200px_1fr_320px] gap-3 p-4 w-[1200px] min-h-[500px] rounded-lg shadow-lg">
                                     {/* Left Section - Categories */}
-                                    <div className="border-r border-gray-200 dark:border-gray-800 p-2">
+                                    <div className="border-r p-2">
                                         <div className="flex flex-col gap-2">
                                             {Object.keys(nav_charms).map((section) => (
                                                 <button
@@ -246,7 +246,7 @@ export default function Header() {
                                                 <NavigationMenuLink asChild key={title}>
                                                     <a
                                                         href={href}
-                                                        className="group flex items-center gap-3 p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                                                        className="group flex items-center gap-3 p-2 rounded-md transition-colors duration-200"
                                                     >
                                                         <div className="relative w-12 h-12 rounded-md overflow-hidden">
                                                             <Image
@@ -264,7 +264,7 @@ export default function Header() {
                                             ))}
                                         </div>
                                         {/* Ad Banner at Bottom */}
-                                        <div className="mt-6 w-full h-32 bg-linear-to-r from-primary/10 to-primary/20 rounded-lg overflow-hidden">
+                                        <div className="mt-6 w-full h-32 bg-gradient-to-r from-primary/10 to-primary/20 rounded-lg overflow-hidden">
                                             <div className="h-full flex items-center justify-between p-4">
                                                 <div className="space-y-2">
                                                     <h3 className="text-lg font-semibold text-primary">Special Offer!</h3>
@@ -288,7 +288,7 @@ export default function Header() {
                                     </div>
 
                                     {/* Right Section - Featured Image */}
-                                    <div className="flex flex-col items-center justify-between p-6 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                                    <div className="flex flex-col items-center justify-between p-6 bg-gradient-to-r from-primary/10 to-primary/20 rounded-lg">
                                         <div className="relative w-full aspect-square rounded-lg overflow-hidden">
                                             <Image
                                                 src={ClipAndSpacer}
