@@ -5,12 +5,18 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 import {
-    MdOutlineShoppingBag,
-    MdFavoriteBorder,
-    MdOutlinePersonOutline,
-    MdOutlineMenu,
-    MdOutlineClose
-} from "react-icons/md";
+    User,
+    Heart,
+    ShoppingBag,
+    Menu,
+    X,
+    Home,
+    Sparkles,
+    Grid3X3,
+    Component,
+    FileText,
+    ChevronRight
+} from "lucide-react"
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -22,6 +28,28 @@ import {
 } from "@/components/ui/navigation-menu"
 import ClipAndSpacer from "../../../../public/clip_n_spacer.webp"
 import { ThemeModeToggle } from "./theme_mode_toggle";
+
+
+const menuItems = [
+    {
+        href: "/account",
+        icon: User,
+        label: "Account",
+        activeColor: "group-hover:text-indigo-500 group-hover:scale-110"
+    },
+    {
+        href: "/wishlist",
+        icon: Heart,
+        label: "Wishlist",
+        activeColor: "group-hover:text-rose-500 group-hover:scale-110"
+    },
+    {
+        href: "/cart",
+        icon: ShoppingBag,
+        label: "Bag",
+        activeColor: "group-hover:text-emerald-500 group-hover:scale-110"
+    }
+];
 
 const nav_charms: { [key: string]: { image: StaticImageData; title: string; href: string; }[] } = {
     "Categories": [
@@ -69,43 +97,14 @@ const nav_charms: { [key: string]: { image: StaticImageData; title: string; href
         },
     ]
 }
-const components: { title: string; href: string; description: string }[] = [
-    {
-        title: "Alert Dialog",
-        href: "/docs/primitives/alert-dialog",
-        description:
-            "A modal dialog that interrupts the user with important content and expects a response.",
-    },
-    {
-        title: "Hover Card",
-        href: "/docs/primitives/hover-card",
-        description:
-            "For sighted users to preview content available behind a link.",
-    },
-    {
-        title: "Progress",
-        href: "/docs/primitives/progress",
-        description:
-            "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-    },
-    {
-        title: "Scroll-area",
-        href: "/docs/primitives/scroll-area",
-        description: "Visually or semantically separates content.",
-    },
-    {
-        title: "Tabs",
-        href: "/docs/primitives/tabs",
-        description:
-            "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-    },
-    {
-        title: "Tooltip",
-        href: "/docs/primitives/tooltip",
-        description:
-            "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-    },
-]
+const components = [
+    { title: "Alert Dialog", href: "/docs/primitives/alert-dialog", description: "A modal dialog that interrupts the user with important content and expects a response." },
+    { title: "Hover Card", href: "/docs/primitives/hover-card", description: "For sighted users to preview content available behind a link." },
+    { title: "Progress", href: "/docs/primitives/progress", description: "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar." },
+    { title: "Scroll-area", href: "/docs/primitives/scroll-area", description: "Visually or semantically separates content." },
+    { title: "Tabs", href: "/docs/primitives/tabs", description: "A set of layered sections of content—known as tab panels—that are displayed one at a time." },
+    { title: "Tooltip", href: "/docs/primitives/tooltip", description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it." },
+];
 
 const ListItem = React.forwardRef<
     React.ComponentRef<"a">,
@@ -137,29 +136,32 @@ export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [selectedSection, setSelectedSection] = React.useState<"Categories" | "Prices">("Categories");
 
-    const toggleMenu = React.useCallback(() => setIsMenuOpen(prev => !prev), []);
+    const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
     React.useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 1024) setIsMenuOpen(false);
         };
-
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, [setIsMenuOpen]);
+    }, []);
 
     return (
         <div className="Relative top-0 w-full z-50 shadow-xs">
-            <div className="p-4 max-w-(--breakpoint-2xl) mx-auto">
+            <div className="p-4 max-w-screen-2xl mx-auto">
                 <header className="flex items-center justify-between">
                     {/* Left: Menu Button + Logo */}
                     <div className="flex items-center gap-4">
                         <button
-                            className="lg:hidden"
+                            className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
                             onClick={toggleMenu}
                             aria-label="Toggle Menu"
                         >
-                            {isMenuOpen ? <MdOutlineClose size={24} /> : <MdOutlineMenu size={24} />}
+                            {isMenuOpen ? (
+                                <X size={22} strokeWidth={1.5} />
+                            ) : (
+                                <Menu size={22} strokeWidth={1.5} />
+                            )}
                         </button>
                         <Link href="/" className="text-2xl font-bold">
                             Gehna.World
@@ -168,14 +170,25 @@ export default function Header() {
 
                     {/* Right: User Actions */}
                     <div className="flex items-center gap-4">
-                        {[
-                            { href: "/account", icon: <MdOutlinePersonOutline size={24} />, label: "Account" },
-                            { href: "/wishlist", icon: <MdFavoriteBorder size={24} />, label: "Wishlist" },
-                            { href: "/cart", icon: <MdOutlineShoppingBag size={24} />, label: "Bag" },
-                        ].map(({ href, icon, label }) => (
-                            <Link key={href} href={href} className="flex flex-col items-center hover:text-gray-600 ">
-                                {icon}
-                                <span className="text-s">{label}</span>
+                        {menuItems.map(({ href, icon: Icon, label, activeColor }) => (
+                            <Link
+                                key={href}
+                                href={href}
+                                className="group flex flex-col items-center text-sm text-muted-foreground hover:text-primary transition-all duration-300"
+                            >
+                                <div className="p-2">
+                                    <Icon
+                                        size={20}
+                                        className={cn(
+                                            "transition-all duration-300",
+                                            activeColor
+                                        )}
+                                        strokeWidth={1.5}
+                                    />
+                                </div>
+                                <span className="mt-1 text-xs font-medium opacity-80 group-hover:opacity-100">
+                                    {label}
+                                </span>
                             </Link>
                         ))}
                         <ThemeModeToggle />
@@ -183,7 +196,7 @@ export default function Header() {
                 </header>
 
                 {/* Categories Navigation Menu*/}
-                <NavigationMenu>
+                <NavigationMenu className="hidden lg:flex">
                     <NavigationMenuList>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Discover</NavigationMenuTrigger>
@@ -329,48 +342,53 @@ export default function Header() {
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
-
-                {/* Mobile Menu */}
-                <>
-                    {/* Overlay */}
-                    <div
-                        className={`
-                            fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300
-                            ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
-                            lg:hidden z-40
-                        `}
-                        onClick={toggleMenu}
-                    />
-
-                    {/* Sliding Menu */}
-                    <div className={`
-                        fixed top-0 left-0 h-full w-64 bg-white shadow-lg
-                        transform transition-transform duration-300 ease-in-out
-                        ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
-                        lg:hidden z-50
-                    `}>
-                        <nav className="flex flex-col gap-4 p-4">
-                            <button
-                                className="self-end p-2"
-                                onClick={toggleMenu}
-                                aria-label="Close Menu"
-                            >
-                                <MdOutlineClose size={24} />
-                            </button>
-
-                            {["Contemporary", "Gold", "Silver", "Diamond", "All Jewellery"].map(category => (
-                                <Link
-                                    key={category}
-                                    href={`/${category.toLowerCase()}`}
-                                    className="p-2 hover:bg-gray-100 rounded"
-                                >
-                                    {category}
-                                </Link>
-                            ))}
-                        </nav>
-                    </div>
-                </>
             </div>
+            {/* Mobile Menu Overlay */}
+            <div className={`fixed inset-0 z-40 bg-black/50 transition-opacity ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={toggleMenu} />
+
+            {/* Mobile Menu Drawer */}
+            <nav
+                className={cn(
+                    "fixed top-0 left-0 bottom-0 z-50 w-[280px] bg-background p-6 shadow-xl transition-transform duration-300 ease-in-out lg:hidden",
+                    isMenuOpen ? "translate-x-0" : "-translate-x-full"
+                )}
+            >
+                <div className="flex items-center justify-between mb-8">
+                    <Link href="/" className="text-xl font-bold">
+                        Gehna.World
+                    </Link>
+                    <button
+                        onClick={toggleMenu}
+                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+                    >
+                        <X size={22} strokeWidth={1.5} />
+                    </button>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    {[
+                        { href: "/", icon: Home, label: "Home" },
+                        { href: "/charms", icon: Sparkles, label: "Charms" },
+                        { href: "/categories", icon: Grid3X3, label: "Categories" },
+                        { href: "/components", icon: Component, label: "Components" },
+                        { href: "/docs", icon: FileText, label: "Documentation" },
+                    ].map(({ href, icon: Icon, label }) => (
+                        <Link
+                            key={href}
+                            href={href}
+                            className="flex items-center gap-3 p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md group transition-colors"
+                            onClick={toggleMenu}
+                        >
+                            <Icon size={18} strokeWidth={1.5} className="text-muted-foreground group-hover:text-primary" />
+                            <span className="font-medium">{label}</span>
+                            <ChevronRight
+                                size={16}
+                                className="ml-auto text-gray-400 group-hover:text-primary transition-colors"
+                            />
+                        </Link>
+                    ))}
+                </div>
+            </nav>
         </div >
     );
 }
