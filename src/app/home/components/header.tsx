@@ -218,7 +218,7 @@ export default function Header() {
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Charms</NavigationMenuTrigger>
                             <NavigationMenuContent>
-                                <div className="grid grid-cols-[200px_1fr_320px] gap-3 p-4 w-[1200px] min-h-[500px] rounded-lg shadow-lg">
+                                <div className="grid grid-cols-[200px_1fr_320px] gap-3 p-4 w-[1200px] min-h-[500px] rounded-lg">
                                     {/* Left Section - Categories */}
                                     <div className="border-r p-2">
                                         <div className="flex flex-col gap-2">
