@@ -42,7 +42,7 @@ export function HeroCarousel() {
         <CarouselContent className="h-full w-full ml-0">
           {hero_carousel_images.map((image, index) => (
             <CarouselItem key={index} className="h-[40vh] md:h-[50vh] lg:h-[75vh] w-full p-0 ">
-              <Card className="h-full w-full overflow-hidden p-0">
+              <Card className="h-full w-full overflow-hidden border-0 p-0">
                 <CardContent className="relative h-full w-full">
                   <Image src={image} fill alt={`Slide ${index + 1}`} className="object-cover"
                   ></Image>
