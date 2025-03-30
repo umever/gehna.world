@@ -141,9 +141,9 @@ export default function Header() {
     }, []);
 
     return (
-        <div className="Relative top-0 w-full z-50 shadow-xs">
-            <div className="p-4 max-w-screen-2xl mx-auto">
-                <header className="flex items-center justify-between">
+        <div className="relative top-0 w-full z-50 shadow-xs">
+            <div className="px-4 py-3 w-full max-w-screen-2xl mx-auto">
+                <header className="flex flex-wrap items-center justify-between gap-4 sm:gap-6">
                     {/* Left: Menu Button + Logo */}
                     <div className="flex items-center gap-4">
                         <button
