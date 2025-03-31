@@ -54,7 +54,7 @@ export default function Header() {
     const pathname = usePathname();
 
     return (
-        <div className="fixed top-0 w-full z-50 bg-background shadow-sm">
+        <div className="Relative top-0 w-full z-50 bg-background shadow-sm">
             <div className="px-4 py-3 w-full max-w-screen-2xl mx-auto">
                 <header className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
