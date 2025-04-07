@@ -130,7 +130,7 @@ export default function CategoryNavMenu() {
                     <NavigationMenuItem>
                         <NavigationMenuTrigger>Charms</NavigationMenuTrigger>
                         <NavigationMenuContent>
-                            <div className="grid grid-cols-[200px_1fr_320px] gap-3 p-4 w-[1200px] min-h-[500px] rounded-lg">
+                            <div className="grid lg:grid-cols-[150px_1fr_240px] xl:grid-cols-[200px_1fr_320px] gap-3 p-4 lg:w-[950px] lg:min-h-[400px] xl:w-[1200px] xl:min-h-[450px] rounded-lg">
                                 {/* Left Section - Categories */}
                                 <div className="border-r p-2">
                                     <div className="flex flex-col gap-2">
@@ -153,13 +153,11 @@ export default function CategoryNavMenu() {
 
                                 {/* Middle Section - Items Grid */}
                                 <div className="p-4 overflow-y-auto max-h-[460px] scrollbar-thin">
-                                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
-                                        {nav_charms[selectedSection].map(({ image, title, href }) => (
+                                    {/* Categories Grid */}
+                                    <div className={selectedSection === "Categories" ? "grid grid-cols-2 lg:grid-cols-3 gap-4 content-start" : "hidden"}>
+                                        {nav_charms["Categories"].map(({ image, title, href }) => (
                                             <NavigationMenuLink asChild key={title}>
-                                                <a
-                                                    href={href}
-                                                    className="group flex items-center gap-3 p-2 rounded-md transition-colors duration-200"
-                                                >
+                                                <Link href={href} className="group flex items-center gap-3 p-2 rounded-md transition-colors duration-200">
                                                     <div className="relative w-12 h-12 rounded-md overflow-hidden">
                                                         <Image
                                                             src={image}
@@ -168,10 +166,27 @@ export default function CategoryNavMenu() {
                                                             className="object-cover transition-transform group-hover:scale-110"
                                                         />
                                                     </div>
-                                                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                                                        {title}
-                                                    </span>
-                                                </a>
+                                                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{title}</span>
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        ))}
+                                    </div>
+
+                                    {/* Prices Grid */}
+                                    <div className={selectedSection === "Prices" ? "grid grid-cols-2 lg:grid-cols-3 gap-4 content-start" : "hidden"}>
+                                        {nav_charms["Prices"].map(({ image, title, href }) => (
+                                            <NavigationMenuLink asChild key={title}>
+                                                <Link href={href} className="group flex items-center gap-3 p-2 rounded-md transition-colors duration-200">
+                                                    <div className="relative w-12 h-12 rounded-md overflow-hidden">
+                                                        <Image
+                                                            src={image}
+                                                            alt={title}
+                                                            fill
+                                                            className="object-cover transition-transform group-hover:scale-110"
+                                                        />
+                                                    </div>
+                                                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{title}</span>
+                                                </Link>
                                             </NavigationMenuLink>
                                         ))}
                                     </div>
