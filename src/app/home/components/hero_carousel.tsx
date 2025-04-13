@@ -37,7 +37,7 @@ export function HeroCarousel() {
   const hero_carousel_images = [Slide1, Slide2, Slide3, Slide4, Slide5]; // Hero Carousel Images
 
   return (
-    <div className="relative mx-auto justify-center w-full h-[40vh] md:h-[50vh] lg:h-[75vh]">
+    <section className="relative mx-auto justify-center w-full h-[40vh] md:h-[50vh] lg:h-[75vh]">
       <Carousel setApi={setApi} opts={{ align: "start", loop: true }} className="h-full w-full  ">
         <CarouselContent className="h-full w-full ml-0">
           {hero_carousel_images.map((image, index) => (
@@ -54,6 +54,6 @@ export function HeroCarousel() {
         <CarouselPrevious className="absolute top-1/2 left-4 -translate-y-1/2" />
         <CarouselNext className="absolute top-1/2 right-4 -translate-y-1/2" />
       </Carousel>
-    </div>
+    </section>
   )
 }
