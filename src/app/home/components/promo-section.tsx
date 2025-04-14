@@ -4,7 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import FiftyPercentSale from "../../../../public/50PercentSale.jpg"
+import FiftyPercentSale from "../../../../public/50percentsale.jpg"
 
 export default function PromoSection() {
   return (
