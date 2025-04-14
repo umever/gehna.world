@@ -4,6 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import FiftyPercentSale from "../../../../public/50PercentSale.jpg"
 
 export default function PromoSection() {
   return (
@@ -40,12 +41,12 @@ export default function PromoSection() {
           >
             <div className="relative">
               <Image
-                src="https://images.unsplash.com/photo-1607082349566-187342175e2f?q=80&w=1170&auto=format&fit=crop"
-                alt="Summer Sale"
-                width={500}
-                height={400}
-                className="rounded-lg object-cover"
-              />
+                              src={FiftyPercentSale}
+                              alt="Summer Sale"
+                              width={500}
+                              height={400}
+                              className="rounded-lg object-cover"
+                            />
               <div className="absolute top-4 right-4 bg-white text-primary rounded-full px-4 py-2 font-bold text-lg">
                 50% OFF
               </div>
