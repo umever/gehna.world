@@ -36,13 +36,18 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${open_sans.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Header />
-          <main>
-              {children}
+          <main className="relative flex min-h-screen flex-col">
+            {/* Layout container with max width */}
+            <div className="w-full max-w-screen-2xl mx-auto px-4 flex-1 flex flex-col">
+              <Header />
+              <div className="flex-1">
+                {children}
+              </div>
+              <Footer />
+            </div>
             <Analytics />
             <SpeedInsights />
           </main>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

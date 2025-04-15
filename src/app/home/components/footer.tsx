@@ -4,7 +4,7 @@ import { Facebook, Instagram, Twitter } from "lucide-react"
 export default function Footer() {
   return (
     <footer className="border-t bg-background">
-      <div className="container px-4 py-12 md:px-6 md:py-16 lg:py-20">
+      <div className="px-4 py-12 md:px-6 md:py-16 lg:py-20">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div>
             <h3 className="text-lg font-semibold mb-4">StyleHub</h3>
@@ -141,5 +141,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
