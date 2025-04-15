@@ -5,6 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "./home/components/theme-provider";
 // import { Roboto_Condensed } from "next/font/google";
 import "./styles/globals.css";
+import Header from "./home/components/header";
+import Footer from "./home/components/footer";
 
 const open_sans = Open_Sans({
   style: ['normal', 'italic'],
@@ -34,8 +36,15 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${open_sans.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <main>
-            {children}
+          <main className="relative flex min-h-screen flex-col">
+            {/* Layout container with max width */}
+            <div className="w-full max-w-screen-2xl mx-auto px-4 flex-1 flex flex-col">
+              <Header />
+              <div className="flex-1">
+                {children}
+              </div>
+              <Footer />
+            </div>
             <Analytics />
             <SpeedInsights />
           </main>
