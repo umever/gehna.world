@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 
 export default function NewsletterSubscribe() {
-//   const { toast } = Toaster()
+  //   const { toast } = Toaster()
   const [email, setEmail] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
@@ -21,14 +21,15 @@ export default function NewsletterSubscribe() {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
-    toast("Subscription successful!",{
+    toast("Subscription successful!", {
       description: "Thank you for subscribing to our newsletter.",
-      action:{
+      action: {
         label: "OK",
         onClick: () => {
           console.log("Subscription successful!")
         },
-      }}
+      }
+    }
     )
 
     setEmail("")
@@ -37,7 +38,7 @@ export default function NewsletterSubscribe() {
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 border-t">
-      <div className="container px-4 md:px-6">
+      <div className="w-full max-w-screen-lg mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
