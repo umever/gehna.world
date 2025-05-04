@@ -116,7 +116,7 @@ export default function CategoryNavMenu() {
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
-                        <Link href="/discover"><NavigationMenuTrigger>Discover</NavigationMenuTrigger></Link>
+                        <Link href="/shop/discover"><NavigationMenuTrigger>Discover</NavigationMenuTrigger></Link>
                         <NavigationMenuContent>
                             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                                 <li className="row-span-3">
@@ -136,10 +136,10 @@ export default function CategoryNavMenu() {
                                         </Link>
                                     </NavigationMenuLink>
                                 </li>
-                                <ListItem href="/discover/new" title="New">
+                                <ListItem href="/shop/discover/new" title="New">
                                     Re-usable components built using Radix UI and Tailwind CSS.
                                 </ListItem>
-                                <ListItem href="/discover/featured" title="Featured">
+                                <ListItem href="/shop/discover/featured" title="Featured">
                                     How to install dependencies and structure your app.
                                 </ListItem>
                                 <ListItem href="/discover/new" title="Gifts">
@@ -152,7 +152,7 @@ export default function CategoryNavMenu() {
                         </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <Link href="/charms"><NavigationMenuTrigger>Charms</NavigationMenuTrigger></Link>
+                        <Link href="/shop/charms"><NavigationMenuTrigger>Charms</NavigationMenuTrigger></Link>
                         <NavigationMenuContent>
                             <div className="grid lg:grid-cols-[150px_1fr_240px] xl:grid-cols-[200px_1fr_320px] gap-3 p-4 lg:w-[950px] lg:min-h-[400px] xl:w-[1200px] xl:min-h-[450px] rounded-lg">
                                 {/* Left Section - Categories */}
