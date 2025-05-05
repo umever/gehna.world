@@ -336,7 +336,7 @@ function ProductCard({ product }: { product: Product }) {
   const [isHovering, setIsHovering] = useState(false)
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden py-0">
       <CardHeader className="p-0">
         <div
           className="aspect-square relative overflow-hidden"
@@ -348,6 +348,7 @@ function ProductCard({ product }: { product: Product }) {
             <Image
               src={product.image}
               alt={`${product.name} - primary view`}
+              fill
               className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-300 ${
                 isHovering ? "opacity-0" : "opacity-100"
               }`}
@@ -357,6 +358,7 @@ function ProductCard({ product }: { product: Product }) {
             <Image
               src={product.hoverImage}
               alt={`${product.name} - alternate view`}
+              fill
               className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-300 ${
                 isHovering ? "opacity-100" : "opacity-0"
               }`}
