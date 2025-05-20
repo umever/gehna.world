@@ -114,7 +114,7 @@ export default function ShopPage() {
   const [openMobileFilters, setOpenMobileFilters] = useState(false)
 
   return (
-    <div className="container px-4 py-6 md:px-6 md:py-8">
+    <div className="w-full px-4 py-6 md:px-6 md:py-8">
       {/* Breadcrumbs */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
