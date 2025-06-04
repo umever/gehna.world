@@ -31,7 +31,7 @@ interface Product {
   name: string
   price: number
   image: string
-  hoverImage: string
+  hover_image: string
   rating: number
   category: string
   in_stock: boolean
@@ -457,7 +457,7 @@ function ProductCard({ product }: { product: Product }) {
 
             {/* Hover image */}
             <Image
-              src={product.hoverImage || "/placeholder.svg"}
+              src={product.hover_image || "/placeholder.svg"}
               alt={`${product.name} - alternate view`}
               fill
               sizes="(max-width: 768px) 100vw, 33vw"

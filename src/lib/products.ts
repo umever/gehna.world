@@ -6,7 +6,7 @@ export interface Product {
   description?: string
   price: number
   image: string
-  hoverImage: string
+  hover_image: string
   rating: number
   category: string
   in_stock: boolean
