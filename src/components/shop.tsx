@@ -169,7 +169,13 @@ export default function ProductsPage() {
             <ChevronRight className="h-4 w-4" />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/products">Products</BreadcrumbLink>
+            <BreadcrumbLink href="/shop">Shop</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>
+            <ChevronRight className="h-4 w-4" />
+          </BreadcrumbSeparator>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/charms">Charms</BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -226,7 +232,7 @@ export default function ProductsPage() {
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-7 gap-4">
               {[...Array(8)].map((_, index) => (
                 <Card key={index} className="overflow-hidden">
                   <CardHeader className="p-0">
@@ -244,7 +250,7 @@ export default function ProductsPage() {
               ))}
             </div>
           ) : filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-7 gap-4">
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -255,27 +261,6 @@ export default function ProductsPage() {
               <p className="text-muted-foreground mt-2">Try adjusting your filters</p>
               <Button onClick={resetFilters} variant="outline" className="mt-4">
                 Reset Filters
-              </Button>
-            </div>
-          )}
-
-          {/* Pagination - only show if we have products */}
-          {filteredProducts.length > 0 && (
-            <div className="flex justify-center mt-8">
-              <Button variant="outline" className="mx-1">
-                1
-              </Button>
-              <Button variant="outline" className="mx-1">
-                2
-              </Button>
-              <Button variant="outline" className="mx-1">
-                3
-              </Button>
-              <Button variant="ghost" className="mx-1">
-                ...
-              </Button>
-              <Button variant="outline" className="mx-1">
-                10
               </Button>
             </div>
           )}
@@ -435,37 +420,31 @@ function ProductCard({ product }: { product: Product }) {
   const [isHovering, setIsHovering] = useState(false)
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden py-0">
       <CardHeader className="p-0">
         <div
           className="aspect-square relative overflow-hidden"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          <div className="relative w-full h-full">
-            {/* Primary image */}
-            <Image
-              src={product.image || "/placeholder.svg"}
-              alt={`${product.name} - primary view`}
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className={`absolute inset-0 object-cover transition-opacity duration-300 ${
-                isHovering ? "opacity-0" : "opacity-100"
+          {/* Primary image */}
+          <Image
+            src={product.image || "/placeholder.svg"}
+            alt={`${product.name} - primary view`}
+            fill
+            className={`absolute inset-0 object-cover transition-opacity duration-300 ${isHovering ? "opacity-0" : "opacity-100"
               }`}
-              priority={product.id === 1}
-            />
+            priority={product.id === 1}
+          />
 
-            {/* Hover image */}
-            <Image
-              src={product.hover_image || "/placeholder.svg"}
-              alt={`${product.name} - alternate view`}
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className={`absolute inset-0 object-cover transition-opacity duration-300 ${
-                isHovering ? "opacity-100" : "opacity-0"
+          {/* Hover image */}
+          <Image
+            src={product.hover_image || "/placeholder.svg"}
+            alt={`${product.name} - alternate view`}
+            fill
+            className={`absolute inset-0 object-cover transition-opacity duration-300 ${isHovering ? "opacity-100" : "opacity-0"
               }`}
-            />
-          </div>
+          />
 
           {/* Stock badge */}
           {!product.in_stock && (
