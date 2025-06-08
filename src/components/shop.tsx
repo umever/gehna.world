@@ -1,8 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ChevronRight, Filter, Star } from "lucide-react"
-import Image, { StaticImageData } from 'next/image'
+import { supabase } from "@/lib/supabase"
+import Image from "next/image"
+
 import { Badge } from "@/components/ui/badge"
 import {
   Breadcrumb,
@@ -21,100 +23,142 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Slider } from "@/components/ui/slider"
+import { toast } from "sonner"
 
-import Graduation2025HeartCharm from "../../public/Graduation2025HeartCharm.jpg"
-import Graduation2025HeartCharmModel from "../../public/Graduation2025HeartCharmModel.jpg"
-
-// Sample product data with primary and hover images
-const products = [
-  {
-    id: 1,
-    name: "Classic White T-Shirt",
-    price: 24.99,
-    image: Graduation2025HeartCharm,
-    hoverImage: Graduation2025HeartCharmModel,
-    rating: 4.5,
-    category: "Clothing",
-  },
-  {
-    id: 2,
-    name: "Leather Crossbody Bag",
-    price: 89.99,
-    image: Graduation2025HeartCharm,
-    hoverImage: Graduation2025HeartCharmModel,
-    rating: 4.8,
-    category: "Accessories",
-  },
-  {
-    id: 3,
-    name: "Wireless Headphones",
-    price: 129.99,
-    image: Graduation2025HeartCharm,
-    hoverImage: Graduation2025HeartCharmModel,
-    rating: 4.7,
-    category: "Electronics",
-  },
-  {
-    id: 4,
-    name: "Running Shoes",
-    price: 79.99,
-    image: Graduation2025HeartCharm,
-    hoverImage: Graduation2025HeartCharmModel,
-    rating: 4.6,
-    category: "Footwear",
-  },
-  {
-    id: 5,
-    name: "Denim Jacket",
-    price: 69.99,
-    image: Graduation2025HeartCharm,
-    hoverImage: Graduation2025HeartCharmModel,
-    rating: 4.4,
-    category: "Clothing",
-  },
-  {
-    id: 6,
-    name: "Smart Watch",
-    price: 199.99,
-    image: Graduation2025HeartCharm,
-    hoverImage: Graduation2025HeartCharmModel,
-    rating: 4.9,
-    category: "Electronics",
-  },
-  {
-    id: 7,
-    name: "Sunglasses",
-    price: 49.99,
-    image: Graduation2025HeartCharm,
-    hoverImage: Graduation2025HeartCharmModel,
-    rating: 4.3,
-    category: "Accessories",
-  },
-  {
-    id: 8,
-    name: "Casual Sneakers",
-    price: 59.99,
-    image: Graduation2025HeartCharm,
-    hoverImage: Graduation2025HeartCharmModel,
-    rating: 4.5,
-    category: "Footwear",
-  },
-]
+// Define product type
+interface Product {
+  id: number
+  name: string
+  price: number
+  image: string
+  hover_image: string
+  rating: number
+  category: string
+  in_stock: boolean
+}
 
 // Categories for filtering
 const categories = [
-  { id: "clothing", label: "Clothing" },
-  { id: "accessories", label: "Accessories" },
-  { id: "electronics", label: "Electronics" },
-  { id: "footwear", label: "Footwear" },
+  { id: "dangle charms", label: "Dangle Charms" },
+  { id: "clips & spacers", label: "Clips & Spacers" },
+  { id: "engravable charms", label: "Engravable Charms" },
+  { id: "letter charms", label: "Letter Charms" },
 ]
 
-export default function ShopPage() {
-  const [priceRange, setPriceRange] = useState([0, 200])
+export default function ProductsPage() {
+  const [products, setProducts] = useState<Product[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
   const [openMobileFilters, setOpenMobileFilters] = useState(false)
 
+  // Filter states
+  const [priceRange, setPriceRange] = useState([0, 200])
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [minRating, setMinRating] = useState<number | null>(null)
+  const [stockFilter, setStockFilter] = useState<string | null>(null)
+
+  // Fetch products from Supabase
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        setLoading(true)
+
+        const { data, error } = await supabase.from("products").select("*")
+
+        if (error) {
+          throw error
+        }
+
+        if (data) {
+          setProducts(data)
+          setFilteredProducts(data)
+
+          // Find max price for price range slider
+          const maxPrice = Math.max(...data.map((product: Product) => product.price))
+          setPriceRange([0, maxPrice > 0 ? maxPrice : 200])
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error)
+        toast.error("Failed to load products. Please try again later.")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProducts()
+    // eslint-disable-next-line
+  }, [])
+
+  // Apply filters whenever filter states change
+  useEffect(() => {
+    if (products.length === 0) return
+
+    let filtered = [...products]
+
+    // Filter by category
+    if (selectedCategories.length > 0) {
+      filtered = filtered.filter((product) => selectedCategories.includes(product.category.toLowerCase()))
+    }
+
+    // Filter by price range
+    filtered = filtered.filter((product) => product.price >= priceRange[0] && product.price <= priceRange[1])
+
+    // Filter by rating
+    if (minRating !== null) {
+      filtered = filtered.filter((product) => product.rating >= minRating)
+    }
+
+    // Filter by stock
+    if (stockFilter === "in-stock") {
+      filtered = filtered.filter((product) => product.in_stock)
+    } else if (stockFilter === "out-of-stock") {
+      filtered = filtered.filter((product) => !product.in_stock)
+    }
+
+    setFilteredProducts(filtered)
+  }, [products, selectedCategories, priceRange, minRating, stockFilter])
+
+  // Handle category selection
+  const handleCategoryChange = (category: string, checked: boolean) => {
+    if (checked) {
+      setSelectedCategories((prev) => [...prev, category])
+    } else {
+      setSelectedCategories((prev) => prev.filter((c) => c !== category))
+    }
+  }
+
+  // Handle rating selection
+  const handleRatingChange = (value: string) => {
+    if (value === "all") {
+      setMinRating(null)
+    } else if (value === "4plus") {
+      setMinRating(4)
+    } else if (value === "3plus") {
+      setMinRating(3)
+    }
+  }
+
+  // Handle stock filter
+  const handleStockChange = (id: string, checked: boolean) => {
+    if (id === "in-stock" && checked) {
+      setStockFilter("in-stock")
+    } else if (id === "out-of-stock" && checked) {
+      setStockFilter("out-of-stock")
+    } else {
+      setStockFilter(null)
+    }
+  }
+
+  // Reset all filters
+  const resetFilters = () => {
+    setSelectedCategories([])
+    setPriceRange([0, Math.max(...products.map((product) => product.price), 200)])
+    setMinRating(null)
+    setStockFilter(null)
+  }
+
   return (
-    <div className="container px-4 py-6 md:px-6 md:py-8">
+    <div className="w-full px-4 py-6 md:px-6 md:py-8">
       {/* Breadcrumbs */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
@@ -150,7 +194,15 @@ export default function ShopPage() {
               <div className="py-4">
                 <h2 className="text-lg font-semibold mb-4">Filters</h2>
                 {/* Mobile filters content - same as desktop sidebar */}
-                <FiltersSidebar priceRange={priceRange} setPriceRange={setPriceRange} />
+                <FiltersSidebar
+                  priceRange={priceRange}
+                  setPriceRange={setPriceRange}
+                  selectedCategories={selectedCategories}
+                  handleCategoryChange={handleCategoryChange}
+                  handleRatingChange={handleRatingChange}
+                  handleStockChange={handleStockChange}
+                  resetFilters={resetFilters}
+                />
               </div>
             </SheetContent>
           </Sheet>
@@ -159,7 +211,15 @@ export default function ShopPage() {
         {/* Desktop sidebar */}
         <div className="hidden md:block w-64 flex-shrink-0">
           <h2 className="text-lg font-semibold mb-4">Filters</h2>
-          <FiltersSidebar priceRange={priceRange} setPriceRange={setPriceRange} />
+          <FiltersSidebar
+            priceRange={priceRange}
+            setPriceRange={setPriceRange}
+            selectedCategories={selectedCategories}
+            handleCategoryChange={handleCategoryChange}
+            handleRatingChange={handleRatingChange}
+            handleStockChange={handleStockChange}
+            resetFilters={resetFilters}
+          />
         </div>
 
         {/* Products grid */}
@@ -167,41 +227,66 @@ export default function ShopPage() {
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">All Products</h1>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">{products.length} products</span>
+              <span className="text-sm text-muted-foreground">{filteredProducts.length} products</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <div className="flex justify-center mt-8">
-            <Button variant="outline" className="mx-1">
-              1
-            </Button>
-            <Button variant="outline" className="mx-1">
-              2
-            </Button>
-            <Button variant="outline" className="mx-1">
-              3
-            </Button>
-            <Button variant="ghost" className="mx-1">
-              ...
-            </Button>
-            <Button variant="outline" className="mx-1">
-              10
-            </Button>
-          </div>
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-7 gap-4">
+              {[...Array(8)].map((_, index) => (
+                <Card key={index} className="overflow-hidden">
+                  <CardHeader className="p-0">
+                    <div className="aspect-square bg-muted animate-pulse" />
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <div className="h-4 bg-muted animate-pulse rounded mb-2" />
+                    <div className="h-4 w-1/2 bg-muted animate-pulse rounded" />
+                  </CardContent>
+                  <CardFooter className="p-4 pt-0 flex justify-between items-center">
+                    <div className="h-4 w-1/4 bg-muted animate-pulse rounded" />
+                    <div className="h-8 w-1/3 bg-muted animate-pulse rounded" />
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          ) : filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-7 gap-4">
+              {filteredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <h3 className="text-lg font-medium">No products found</h3>
+              <p className="text-muted-foreground mt-2">Try adjusting your filters</p>
+              <Button onClick={resetFilters} variant="outline" className="mt-4">
+                Reset Filters
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
   )
 }
 
-function FiltersSidebar({ priceRange, setPriceRange }: { priceRange: number[]; setPriceRange: (value: number[]) => void }) {
+function FiltersSidebar({
+  priceRange,
+  setPriceRange,
+  selectedCategories,
+  handleCategoryChange,
+  handleRatingChange,
+  handleStockChange,
+  resetFilters,
+}: {
+  priceRange: number[]
+  setPriceRange: (value: number[]) => void
+  selectedCategories: string[]
+  handleCategoryChange: (category: string, checked: boolean) => void
+  handleRatingChange: (value: string) => void
+  handleStockChange: (id: string, checked: boolean) => void
+  resetFilters: () => void
+}) {
   return (
     <div className="space-y-6">
       {/* Categories */}
@@ -210,7 +295,11 @@ function FiltersSidebar({ priceRange, setPriceRange }: { priceRange: number[]; s
         <div className="space-y-2">
           {categories.map((category) => (
             <div key={category.id} className="flex items-center space-x-2">
-              <Checkbox id={`category-${category.id}`} />
+              <Checkbox
+                id={`category-${category.id}`}
+                checked={selectedCategories.includes(category.id)}
+                onCheckedChange={(checked) => handleCategoryChange(category.id, checked === true)}
+              />
               <Label htmlFor={`category-${category.id}`} className="text-sm font-normal cursor-pointer">
                 {category.label}
               </Label>
@@ -227,7 +316,7 @@ function FiltersSidebar({ priceRange, setPriceRange }: { priceRange: number[]; s
         <Slider
           defaultValue={priceRange}
           min={0}
-          max={200}
+          max={Math.max(200, priceRange[1])}
           step={1}
           value={priceRange}
           onValueChange={setPriceRange}
@@ -239,7 +328,7 @@ function FiltersSidebar({ priceRange, setPriceRange }: { priceRange: number[]; s
             <Input
               type="number"
               value={priceRange[0]}
-              onChange={(e) => setPriceRange([Number.parseInt(e.target.value), priceRange[1]])}
+              onChange={(e) => setPriceRange([Number.parseInt(e.target.value) || 0, priceRange[1]])}
               className="h-8 w-16"
             />
           </div>
@@ -249,7 +338,7 @@ function FiltersSidebar({ priceRange, setPriceRange }: { priceRange: number[]; s
             <Input
               type="number"
               value={priceRange[1]}
-              onChange={(e) => setPriceRange([priceRange[0], Number.parseInt(e.target.value)])}
+              onChange={(e) => setPriceRange([priceRange[0], Number.parseInt(e.target.value) || 0])}
               className="h-8 w-16"
             />
           </div>
@@ -261,7 +350,7 @@ function FiltersSidebar({ priceRange, setPriceRange }: { priceRange: number[]; s
       {/* Rating */}
       <div>
         <h3 className="font-medium mb-3">Rating</h3>
-        <RadioGroup defaultValue="all">
+        <RadioGroup defaultValue="all" onValueChange={handleRatingChange}>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="all" id="rating-all" />
             <Label htmlFor="rating-all" className="text-sm font-normal cursor-pointer">
@@ -288,7 +377,7 @@ function FiltersSidebar({ priceRange, setPriceRange }: { priceRange: number[]; s
       <Separator />
 
       {/* Availability */}
-      <Collapsible className="w-full">
+      <Collapsible className="w-full" defaultOpen>
         <div className="flex items-center justify-between">
           <h3 className="font-medium">Availability</h3>
           <CollapsibleTrigger asChild>
@@ -300,13 +389,16 @@ function FiltersSidebar({ priceRange, setPriceRange }: { priceRange: number[]; s
         </div>
         <CollapsibleContent className="space-y-2 pt-2">
           <div className="flex items-center space-x-2">
-            <Checkbox id="in-stock" />
+            <Checkbox id="in-stock" onCheckedChange={(checked) => handleStockChange("in-stock", checked === true)} />
             <Label htmlFor="in-stock" className="text-sm font-normal cursor-pointer">
               In stock
             </Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Checkbox id="out-of-stock" />
+            <Checkbox
+              id="out-of-stock"
+              onCheckedChange={(checked) => handleStockChange("out-of-stock", checked === true)}
+            />
             <Label htmlFor="out-of-stock" className="text-sm font-normal cursor-pointer">
               Out of stock
             </Label>
@@ -316,52 +408,50 @@ function FiltersSidebar({ priceRange, setPriceRange }: { priceRange: number[]; s
 
       <Separator />
 
-      {/* Apply filters button */}
-      <Button className="w-full">Apply Filters</Button>
+      {/* Reset filters button */}
+      <Button variant="outline" className="w-full" onClick={resetFilters}>
+        Reset Filters
+      </Button>
     </div>
   )
-}
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: StaticImageData;
-  hoverImage: StaticImageData;
-  rating: number;
-  category: string;
 }
 
 function ProductCard({ product }: { product: Product }) {
   const [isHovering, setIsHovering] = useState(false)
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden py-0">
       <CardHeader className="p-0">
         <div
           className="aspect-square relative overflow-hidden"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          <div className="relative w-full h-full">
-            {/* Primary image */}
-            <Image
-              src={product.image}
-              alt={`${product.name} - primary view`}
-              className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-300 ${
-                isHovering ? "opacity-0" : "opacity-100"
+          {/* Primary image */}
+          <Image
+            src={product.image || "/placeholder.svg"}
+            alt={`${product.name} - primary view`}
+            fill
+            className={`absolute inset-0 object-cover transition-opacity duration-300 ${isHovering ? "opacity-0" : "opacity-100"
               }`}
-            />
+            priority={product.id === 1}
+          />
 
-            {/* Hover image */}
-            <Image
-              src={product.hoverImage}
-              alt={`${product.name} - alternate view`}
-              className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-300 ${
-                isHovering ? "opacity-100" : "opacity-0"
+          {/* Hover image */}
+          <Image
+            src={product.hover_image || "/placeholder.svg"}
+            alt={`${product.name} - alternate view`}
+            fill
+            className={`absolute inset-0 object-cover transition-opacity duration-300 ${isHovering ? "opacity-100" : "opacity-0"
               }`}
-            />
-          </div>
+          />
+
+          {/* Stock badge */}
+          {!product.in_stock && (
+            <div className="absolute top-2 right-2">
+              <Badge variant="destructive">Out of Stock</Badge>
+            </div>
+          )}
         </div>
       </CardHeader>
       <CardContent className="p-4">
@@ -380,7 +470,9 @@ function ProductCard({ product }: { product: Product }) {
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
         <span className="font-semibold">${product.price.toFixed(2)}</span>
-        <Button size="sm">Add to Cart</Button>
+        <Button size="sm" disabled={!product.in_stock}>
+          {product.in_stock ? "Add to Cart" : "Sold Out"}
+        </Button>
       </CardFooter>
     </Card>
   )

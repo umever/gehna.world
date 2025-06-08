@@ -38,7 +38,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <main className="relative flex min-h-screen flex-col">
             {/* Layout container with max width */}
-            <div className="w-full max-w-screen-3xl mx-auto flex-1 flex flex-col">
+            <div className="w-full max-w-screen-4xl mx-auto flex-1 flex flex-col">
               <Header />
               <div className="flex-1">
                 {children}
