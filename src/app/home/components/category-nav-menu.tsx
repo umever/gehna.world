@@ -33,7 +33,7 @@ const nav_charms: { [key: string]: { image: StaticImageData; title: string; href
         },
         {
             image: ClipAndSpacer,
-            title: "Safety Chains",
+            title: "Letter Charms",
             href: "/docs/primitives/scroll-area"
         },
     ],

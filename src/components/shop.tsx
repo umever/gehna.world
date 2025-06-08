@@ -39,10 +39,10 @@ interface Product {
 
 // Categories for filtering
 const categories = [
-  { id: "clothing", label: "Clothing" },
-  { id: "accessories", label: "Accessories" },
-  { id: "electronics", label: "Electronics" },
-  { id: "footwear", label: "Footwear" },
+  { id: "dangle charms", label: "Dangle Charms" },
+  { id: "clips & spacers", label: "Clips & Spacers" },
+  { id: "engravable charms", label: "Engravable Charms" },
+  { id: "letter charms", label: "Letter Charms" },
 ]
 
 export default function ProductsPage() {
