@@ -34,11 +34,14 @@ const menuItems = [
 ];
 
 const navLinks = [
-  { href: "/", icon: Home, label: "Home" },
-  { href: "/charms", icon: Sparkles, label: "Charms" },
-  { href: "/categories", icon: Grid3X3, label: "Categories" },
-  { href: "/components", icon: Component, label: "Components" },
-  { href: "/docs", icon: FileText, label: "Documentation" },
+  { href: "/shop/discover", icon: Home, label: "Discover" },
+  { href: "/shop/charms", icon: Sparkles, label: "Charms" },
+  { href: "/shop/neclaces", icon: Grid3X3, label: "Neclaces" },
+  { href: "/shop/bracelets", icon: Component, label: "Bracelets" },
+  { href: "/shop/rings", icon: FileText, label: "Rings" },
+  { href: "/shop/earrings", icon: Grid3X3, label: "Earrings" },
+  { href: "/shop/diamonds", icon: Component, label: "Diamonds" },
+  { href: "/shop/engravings", icon: FileText, label: "Engravings" },
 ];
 
 export default function Header() {
